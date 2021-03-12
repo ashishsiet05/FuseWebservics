@@ -1,0 +1,27 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:tns="http://wssuma.ws.demos.fuse.redhat.com/" elementFormDefault="unqualified"
+	targetNamespace="http://wssuma.ws.demos.fuse.redhat.com/" version="1.0">
+	<xs:element name="sum" type="tns:sum" />
+	<xs:element name="sumResponse" type="tns:sumResponse" />
+	<xs:complexType name="sum">
+		<xs:sequence>
+			<xs:element minOccurs="0" name="arg0" type="tns:sumDTO" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="sumDTO">
+		<xs:sequence>
+			<xs:element name="oper1" type="xs:int" />
+			<xs:element name="oper2" type="xs:int" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="sumResponse">
+		<xs:sequence>
+			<xs:element minOccurs="0" name="return" type="tns:sumResult" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="sumResult">
+		<xs:sequence>
+			<xs:element name="result" type="xs:int" />
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

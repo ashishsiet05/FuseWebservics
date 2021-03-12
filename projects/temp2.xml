@@ -1,0 +1,9 @@
+<mx.org.ife.svce.dto.MinutiaeCompareResponse>
+<responseCode> 91 </responseCode>
+<responseDescription> OCR Vigente </responseDescription>
+<timeServer> 0.221 segs </timeServer>
+<timeAccesPoint> 0.239 segs </timeAccesPoint>
+<timestamp> 20140113 14:26:53.310 </timestamp>
+<ocr> true </ocr>
+<similitud> 10000 </similitud>
+</mx.org.ife.svce.dto.MinutiaeCompareResponse>

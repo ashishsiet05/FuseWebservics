@@ -1,0 +1,17 @@
+<mx.org.ife.svce.dto.DatosCredencialResponse>
+<responseCode>90</responseCode>
+<responseDescription>OCR No Vigente</responseDescription>
+<timeServer>0.006 segs</timeServer>
+<timeAccessPoint>0.018 segs</timeAccessPoint>
+<timeStamp>20160427 19:49:06.476</timeStamp>
+<ocr>false</ocr>
+<apellidoMaterno>false</apellidoMaterno>
+<apellidoPaterno>false</apellidoPaterno>
+<nombre>false</nombre>
+<anioRegistro>false</anioRegistro>
+<emision>false</emision>
+<claveElector>false</claveElector>
+<curp>false</curp>
+<similitudANSI2>0</similitudANSI2>
+<similitudANSI7>0</similitudANSI7>
+</mx.org.ife.svce.dto.DatosCredencialResponse>

@@ -1,0 +1,65 @@
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://wssuma.ws.demos.fuse.redhat.com/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http"
+	name="AddEndpointService" targetNamespace="http://wssuma.ws.demos.fuse.redhat.com/">
+	<wsdl:types>
+		<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+			xmlns:tns="http://wssuma.ws.demos.fuse.redhat.com/"
+			elementFormDefault="unqualified" targetNamespace="http://wssuma.ws.demos.fuse.redhat.com/"
+			version="1.0">
+			<xs:element name="multiply" type="tns:multiply" />
+			<xs:element name="multiplyResponse" type="tns:multiplyResponse" />
+			<xs:complexType name="multiply">
+				<xs:sequence>
+					<xs:element minOccurs="1" name="multiplyDTO" type="tns:multiplyDTO" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="multiplyDTO">
+				<xs:sequence>
+					<xs:element name="oper1" type="xs:int" />
+					<xs:element name="oper2" type="xs:int" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="multiplyResponse">
+				<xs:sequence>
+					<xs:element minOccurs="1" name="return" type="tns:multiplyResult" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="multiplyResult">
+				<xs:sequence>
+					<xs:element name="result" type="xs:int" />
+				</xs:sequence>
+			</xs:complexType>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="multiplyResponse">
+		<wsdl:part element="tns:multiplyResponse" name="parameters"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="multiply">
+		<wsdl:part element="tns:multiply" name="parameters"></wsdl:part>
+	</wsdl:message>
+	<wsdl:portType name="MultiplyEndpoint">
+		<wsdl:operation name="multiply">
+			<wsdl:input message="tns:multiply" name="multiply"></wsdl:input>
+			<wsdl:output message="tns:multiplyResponse" name="multiplyResponse"></wsdl:output>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="MultiplyEndpointServiceSoapBinding" type="tns:MultiplyEndpoint">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="multiply">
+			<soap:operation soapAction="multiply" style="document" />
+			<wsdl:input name="multiply">
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="multiplyResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="MultiplyEndpointService">
+		<wsdl:port binding="tns:MultiplyEndpointServiceSoapBinding" name="MultiplyEndpointPort">
+			<soap:address location="http://localhost:8080/wscalculator/multiply" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

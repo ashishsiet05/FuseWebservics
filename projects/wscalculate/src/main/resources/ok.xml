@@ -1,0 +1,22 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+	xmlns:bus="http://www.procesar.com.mx/BusTramites">
+	<soapenv:Header />
+	<soapenv:Body>
+		<bus:solicitarTramiteResponse>
+			<bus:ssnrop>
+				<codoper>6</codoper>
+				<codRespuesta>7</codRespuesta>
+				<codRespuestaOpr>8</codRespuestaOpr>
+				<descRespuesta>fff</descRespuesta>
+				<motivos>
+					<!--Zero or more repetitions: -->
+					<motivo idMotivo="9" descripcion="4">hhhhh</motivo>
+				</motivos>
+				<codoperCliente>10</codoperCliente>
+				<tiempoRespuesta>11</tiempoRespuesta>
+				<fecha>2001-10-26T19:32:52Z</fecha>
+			</bus:ssnrop>
+			<bus:objetoRespuesta>algo resp</bus:objetoRespuesta>
+		</bus:solicitarTramiteResponse>
+	</soapenv:Body>
+</soapenv:Envelope>

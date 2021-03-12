@@ -1,0 +1,27 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:tns="http://wssuma.ws.demos.fuse.redhat.com/" elementFormDefault="unqualified"
+	targetNamespace="http://wssuma.ws.demos.fuse.redhat.com/" version="1.0">
+	<xs:element name="add" type="tns:add" />
+	<xs:element name="addResponse" type="tns:addResponse" />
+	<xs:complexType name="add">
+		<xs:sequence>
+			<xs:element minOccurs="0" name="arg0" type="tns:addDTO" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="addDTO">
+		<xs:sequence>
+			<xs:element name="oper1" type="xs:int" />
+			<xs:element name="oper2" type="xs:int" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="addResponse">
+		<xs:sequence>
+			<xs:element minOccurs="0" name="return" type="tns:addResult" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="addResult">
+		<xs:sequence>
+			<xs:element name="result" type="xs:int" />
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

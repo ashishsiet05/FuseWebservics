@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:cxf="http://camel.apache.org/schema/cxf"
+       xsi:schemaLocation="
+         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+         http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd">
+ 
+  <cxf:cxfEndpoint id="sumEndpoint"
+                   address="http://localhost:8080/wscalculator/sum"
+                   serviceClass="com.redhat.fuse.demos.ws.wssuma.SumEndpoint"/>
+                   
+  <cxf:cxfEndpoint id="addEndpoint"
+                   address="http://localhost:8080/wscalculator/add"
+                   serviceClass="com.redhat.fuse.demos.ws.wssuma.AddEndpoint"/>
+                   
+   <cxf:cxfEndpoint id="multiplyEndpoint"
+                     address="http://localhost:8080/wscalculator/multiply"
+                     serviceName="s:MultiplyEndpointService"
+                     serviceClass="com.redhat.fuse.demos.ws.wssuma.MultiplyEndpoint"
+                     xmlns:s="http://wssuma.ws.demos.fuse.redhat.com/"/>
+</beans>

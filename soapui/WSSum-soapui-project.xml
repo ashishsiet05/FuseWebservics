@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project activeEnvironment="Default" name="WSSum" soapui-version="5.6.0" abortOnError="false" runType="SEQUENTIAL" id="3a654aa0-ece2-4ac3-95f7-a7622437c6f7" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="SumEndpointServiceSoapBinding" type="wsdl" bindingName="{http://wssuma.ws.demos.fuse.redhat.com/}SumEndpointServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="http://localhost:9000/sum/?wsdl" id="3e587f2c-19f7-4960-9d4f-d85f889b65b7" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:9000/sum/?wsdl"><con:part><con:url>http://localhost:9000/sum/?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="SumEndpointService" targetNamespace="http://wssuma.ws.demos.fuse.redhat.com/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://wssuma.ws.demos.fuse.redhat.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http">
+  <wsdl:types>
+    <xs:schema elementFormDefault="unqualified" targetNamespace="http://wssuma.ws.demos.fuse.redhat.com/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="sum" type="tns:sum"/>
+      <xs:element name="sumResponse" type="tns:sumResponse"/>
+      <xs:complexType name="sum">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="arg0" type="tns:sumDTO"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="sumDTO">
+        <xs:sequence>
+          <xs:element name="oper1" type="xs:int"/>
+          <xs:element name="oper2" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="sumResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:sumResult"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="sumResult">
+        <xs:sequence>
+          <xs:element name="result" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="sumResponse">
+    <wsdl:part element="tns:sumResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="sum">
+    <wsdl:part element="tns:sum" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="SumEndpoint">
+    <wsdl:operation name="sum">
+      <wsdl:input message="tns:sum" name="sum"></wsdl:input>
+      <wsdl:output message="tns:sumResponse" name="sumResponse"></wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SumEndpointServiceSoapBinding" type="tns:SumEndpoint">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="sum">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="sum">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="sumResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SumEndpointService">
+    <wsdl:port binding="tns:SumEndpointServiceSoapBinding" name="SumEndpointPort">
+      <soap:address location="http://localhost:9000/sum/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:9000/sum/</con:endpoint></con:endpoints><con:operation isOneWay="false" action="" name="sum" bindingOperationName="sum" type="Request-Response" outputName="sumResponse" inputName="sum" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="62f5b54a-be61-4bca-a5a4-ca6b8b4e0221"><con:settings/><con:call name="Request 1" id="8dd55aed-1694-45c6-b631-3abdc6b98ca1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/wscalculator/sum</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wss="http://wssuma.ws.demos.fuse.redhat.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <wss:sum>
+         <arg0>
+            <oper1>5</oper1>
+            <oper2>1</oper2>
+         </arg0>
+      </wss:sum>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://wssuma.ws.demos.fuse.redhat.com/SumEndpoint/sum"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>

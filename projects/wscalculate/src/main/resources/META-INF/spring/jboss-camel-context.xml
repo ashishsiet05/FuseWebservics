@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:camel="http://camel.apache.org/schema/spring"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="          http://www.springframework.org/schema/beans           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd          http://camel.apache.org/schema/spring           http://camel.apache.org/schema/spring/camel-spring.xsd">
+    <import resource="classpath:META-INF/spring/camel-cxf.xml"/>
+    <camelContext id="camelContext-959e4f5b-519b-4dab-80d6-e8be00b400a0"
+        xmlns="http://camel.apache.org/schema/spring" xmlns:wss="http://wssuma.ws.demos.fuse.redhat.com/">
+        <route id="_route1">
+            <from id="_from1" uri="cxf:bean:calculateEndpoint?dataFormat=PAYLOAD"/>
+            <setHeader headerName="operationNamespace" id="_setHeader1">
+                <constant>http://wssuma.ws.demos.fuse.redhat.com/</constant>
+            </setHeader>
+            <choice id="_choice1">
+                <when id="_when1">
+                    <xpath>/wss:calculate/operType='sum'</xpath>
+                    <to id="_to1" uri="xslt:xslt/transformSum.xsl"/>
+                    <to id="_to2" uri="validator:wsdl/xsd/sum.xsd"/>
+                    <setHeader headerName="operationName" id="_setHeader2">
+                        <constant>sum</constant>
+                    </setHeader>
+                    <to id="_to3" uri="cxf:bean:wsSumService?dataFormat=PAYLOAD"/>
+                    <to id="_to4" uri="xslt:xslt/transformResponse.xsl"/>
+                </when>
+                <when id="_when2">
+                    <xpath>/wss:calculate/operType='add'</xpath>
+                    <to id="_to5" uri="xslt:xslt/transformAdd.xsl"/>
+                    <to id="_to6" uri="validator:wsdl/xsd/add.xsd"/>
+                    <setHeader headerName="operationName" id="_setHeader3">
+                        <constant>add</constant>
+                    </setHeader>
+                    <to id="_to7" uri="cxf:bean:wsAddService?dataFormat=PAYLOAD"/>
+                    <to id="_to8" uri="xslt:xslt/transformResponse.xsl"/>
+                </when>
+                <when id="_when3">
+                    <xpath>/wss:calculate/operType='multiply'</xpath>
+                    <to id="_to9" uri="xslt:xslt/transformMultiply.xsl"/>
+                    <to id="_to10" uri="validator:wsdl/xsd/multiply.xsd"/>
+                    <setHeader headerName="operationName" id="_setHeader4">
+                        <constant>multiply</constant>
+                    </setHeader>
+                    <to id="_to11" uri="cxf:bean:wsMultiplyService?dataFormat=PAYLOAD"/>
+                    <to id="_to12" uri="xslt:xslt/transformResponse.xsl"/>
+                </when>
+                <otherwise id="_otherwise1">
+                    <log id="_log1" message="unknown message"/>
+                    <to id="_to13" uri="language:constant:classpath:error.xml"/>
+                </otherwise>
+            </choice>
+        </route>
+    </camelContext>
+</beans>

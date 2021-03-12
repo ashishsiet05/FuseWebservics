@@ -1,0 +1,27 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:tns="http://wssuma.ws.demos.fuse.redhat.com/" targetNamespace="http://wssuma.ws.demos.fuse.redhat.com/"
+	version="1.0">
+	<xs:element name="multiply" type="tns:multiply" />
+	<xs:element name="multiplyResponse" type="tns:multiplyResponse" />
+	<xs:complexType name="multiply">
+		<xs:sequence>
+			<xs:element name="multiplyDTO" type="tns:multiplyDTO" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="multiplyDTO">
+		<xs:sequence>
+			<xs:element name="oper1" type="xs:int" />
+			<xs:element name="oper2" type="xs:int" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="multiplyResponse">
+		<xs:sequence>
+			<xs:element name="return" type="tns:multiplyResult" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="multiplyResult">
+		<xs:sequence>
+			<xs:element name="result" type="xs:int" />
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

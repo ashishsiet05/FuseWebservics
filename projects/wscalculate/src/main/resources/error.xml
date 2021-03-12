@@ -1,0 +1,8 @@
+<Fault>
+	<Code>
+		<Value>500</Value>
+	</Code>
+	<Detail>
+		Calculo no soportado
+	</Detail>
+</Fault>
