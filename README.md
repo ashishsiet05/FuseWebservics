@@ -1,6 +1,6 @@
 # Introduction
 
-This demo was created to review some general features of JBoss Fuse 6.2.1 <br/>
+This demo was created to review some general features of JBoss Fuse 7.8 running on JBoss EAP 7.3<br/>
 It was created to help new fuse developers to understand how to create web services using different approaches. This services will execute basic mathematical operations (sum, add, multiply). We will create an additional web service that will standardize request to the other services and act as a proxy too.<br/><br/>
 
 ENJOY!!!!
@@ -9,7 +9,7 @@ ENJOY!!!!
 
 We will create four web services which are: <br/><br/>
  * Sum Web Service:  It will be created using **Code first** approach. SOAP request will receive two numbers and return a sum operation. 
-The wsdl definition will be available at `http://localhost:{CustomPort}/sum/?wsdl`.<br/>
+The wsdl definition will be available at `http://localhost:8080/wscalculator/sum?wsdl`.<br/>
 This is a SOAP Request and SOAP Response example:<br/>
 SOAP Request: <br/>
 ```XML
@@ -39,7 +39,7 @@ SOAP Response: <br/>
 </soapenv:Envelope>
 ```
 
- * Add Web Service:  It will be created using **Code first** approach. SOAP request will receive two numbers and return an add operation.  The wsdl definition will be available at `http://localhost:{CustomPort}/add/?wsdl`.<br/>
+ * Add Web Service:  It will be created using **Code first** approach. SOAP request will receive two numbers and return an add operation.  The wsdl definition will be available at `http://localhost:8080/wscalculator/add?wsdl`.<br/>
 This is a SOAP Request and SOAP Response example:<br/>
 SOAP Request: <br/>
 ```XML
@@ -71,7 +71,7 @@ SOAP Response: <br/>
 
 
  * Multiply Web Service:  It will be created using **Contract first** approach. SOAP request will receive two numbers and return a multiply operation.  
-The wsdl definition will be available at `http://localhost:{CustomPort}/multiply/?wsdl`.<br/>
+The wsdl definition will be available at `http://localhost:8080/wscalculator/multiply?wsdl`.<br/>
 This is a SOAP Request and SOAP Response example:<br/>
 SOAP Request: <br/>
 ```XML
@@ -101,7 +101,7 @@ SOAP Response: <br/>
 </soapenv:Envelope>
 ```
 * Calculate Web Service: It will be created using **Contract first** approach. SOAP request will receive two numbers, a sender name and an operation type. The operation type can be **sum**, **add** or **multiply**. The service will return the resulting operation and an operation id constant **completed**.  <br/>
-The wsdl definition will be available at `http://localhost:{CustomPort}/calculate/?wsdl`.<br/>
+The wsdl definition will be available at `http://localhost:8080/wscalculate/calculate?wsdl`.<br/>
 This is a SOAP Request and SOAP Response example:<br/>
 SOAP Request: <br/>
 ```XML
@@ -151,10 +151,8 @@ Here is a visual camel route of calculate service:<br/>
 This demo will include information about several topics wich include: 
 
 * Create a JBoss Fuse installation and initial configuration.
-* Understand how to use Karaf console
-* Understand how to Begin a Fabric configuration 
-* Access Web console to manage Fuse and Fabrics
-* Learn how to deploy projects profiles using fabric8 maven plugin
+* Understand how to use howtio console
+* Learn how to deploy projects profiles using maven plugin
 * Learn how to create web services using coding first approach
 * Learn how to create web services using contract first approach
 * Learn how to expose a proxy web service
@@ -164,8 +162,8 @@ This demo will include information about several topics wich include:
 
 ## Pre-Requisites
 
-1. JBoss Fuse 6.2.1 zip installation file 
-2. Java JDK 7 installed
+1. JBoss Fuse 7.8 jar installation file 
+2. Java JDK 11 or 15 installed
 3. Apache Maven 3.1.1 version installed
 4. Web Browser
 5. Basic Linux commands understanding
@@ -174,6 +172,33 @@ This demo will include information about several topics wich include:
 8. GIT installed
 
 # Setup JBoss Fuse
+
+## Install JBoss EAP 7.3
+
+1. Download jboss-eap-7.3.0.zip file from Red Hat Customer Portal or Developer Portal.
+
+2. Download jboss-eap-7.3.5-patch.zip patch (or above) from Red Hat Customer Portal or Developer Portal.
+
+3. Open a command Terminal
+
+4. Unzip jboss-eap-7.3.0.zip:
+   - `unzip jboss-eap-7.3.0.zip`<br/>
+
+5. Copy jboss-eap-7.3.5-patch.zip to new unziped folder:
+   - `cp /path/to/jboss-eap-7.3.5-patch.zip /path/to/jboss/jboss-eap-7.3/`
+
+6. Apply the patch:
+   - `<PathToJBossFolder>/bin/jboss-cli.sh "patch apply jboss-eap-7.3.x-patch.zip"`
+
+7. Add an admin user to JBoss EAP:
+   - `<PathToJBossFolder>/bin/add-user.sh`
+   - Select Management User
+   - Write a username
+   - Write a password and confirm the password
+   - Leave blank the groups question (just press enter)
+   - Confirm the creation question
+   - Write 'No' to "Is this new user going to be used for one AS process to connect to another AS process?" question.
+
 
 ## Install JBoss Fuse
 
