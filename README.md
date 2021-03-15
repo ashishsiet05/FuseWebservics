@@ -202,173 +202,53 @@ This demo will include information about several topics wich include:
 
 ## Install JBoss Fuse
 
-1. Open a command terminal
+1. Download fuse-eap-installer-7.8.0.jar file from Customer Portal of Developer Portal.
 
-1. Unzip JBoss Fuse on any directory that you wish to use as $FUSE_HOME. In this example i will use directory `/opt/redhat/`. Copy JBoss Fuse installation zip file on the selected directory and be sure your user have read, write and execute privileges.
+2. Open a command terminal
 
-	- `cd /opt/redhat`
-	- `unzip jboss-fuse-full-6.2.1.redhat-084.zip`<br/>
-    ![Unzip Command](https://github.com/igl100/fuse621-wsdemo/blob/master/docs/image/Capture1.png)
-    
-	- `export FUSE_HOME=/opt/redhat/jboss-fuse-6.2.1.redhat-084`
+3. Copy fuse-eap-installer-7.8.0.jar to jboss folder installed on the preview step
+   - `cp /path/to/fuse-eap-installer-7.8.0.jar /<PathToJBossFolder>/jboss/jboss-eap-7.3/`
 
-	Thats it!!!, JBoss Fuse is already install!!!
+4. Run the installer jar file:
+   - `java -jar <PathToJBossFolder>/fuse-eap-installer-7.8.0.jar`
+
+Thats it!!!, JBoss Fuse is already install!!!
  
-## Configure JBoss Fuse 
- 
-Before running JBoss Fuse for the first time we need to configure user/password access.
-
-1. Enable user/password for karaf console. On your opened terminal execute:
-	- `cd $FUSE_HOME`
-	- `vi ./etc/users.properties` (If you do not like vi, use any other text editor)
-	- Uncomment the final line by removing # character from #admin=admin,admin line
-	- Save the file (esc, :wq)
 
 ## Running JBoss Fuse
 
-1. On opened terminal `$FUSE_HOME/bin/start`
+1. On opened terminal and start JBoss EAP: `<PathToJBossFolder>/bin/standalone.sh`
 
-2. Access karaf console:
-	-  `$FUSE_HOME/bin/client -u admin -p admin` 
-    <br/>If you get a message **"Failed to get the session"** wait a few seconds and try again. This message means that JBoss Fuse is starting.<br/>
-	![Karaf Console](https://github.com/igl100/fuse621-wsdemo/blob/master/docs/image/Capture2.png)
+2. Access Fuse console using a web browser (http://localhost:8080/hawtio):
 
-3. Create a fabric so we can manage all the brokers from a single console:
-	- `fabric:create --clean --wait-for-provisioning  --bind-address localhost --resolver manualip --global-resolver manualip --manual-ip localhost --zookeeper-password admin`<br/><br/>
-    All this parameters are needed so that zookeeper and fuse fabric bind everything to **localhost** address. This is not what you need to do on production servers but since ipaddress might change on laptops or PC's fabric might not start correctly on different networks.
-    
-4. Validate that fabric created by running `container-list` on karaf console.
-	<br/>
-	![Container-list command](https://github.com/igl100/fuse621-wsdemo/blob/master/docs/image/Capture3.png)
-
-5. Open URL http://localhost:8181 on a web browser and login with user admin and password admin<br/>
-	![Fabric Login](https://github.com/igl100/fuse621-wsdemo/blob/master/docs/image/Capture4.png)
-    <br/>
-    ![Fabric Home](https://github.com/igl100/fuse621-wsdemo/blob/master/docs/image/Capture5.png)
-    <br/>
-    ![Fabric Containers](https://github.com/igl100/fuse621-wsdemo/blob/master/docs/image/Capture6.png)
+3. Access the console using the user and password created when JBoss EAP was installed
 
 # Cloning Proyects
 
 Clone from GIT:
 * Create or move to an empty dir: `cd <WorkshopProyectsDirToUse>`
-* Run: `git clone https://github.com/igl100/fuse621-wsdemo.git`
+* Run: `git clone https://github.com/igl100/fuse78-wsdemo.git`
 
 # Deploy wscalculator profile
 
 This project contains the definition of sum, add and multiply services. In order to deploy: 
  * On a terminal go to demo projects directory: `cd <FuseWADemoDir>/projects/wscalculator`
- * Run: `mvn clean install fabric8:deploy`
+ * Run: `mvn clean generate-sources wildfly:deploy`
 
-If settings.xml update is asked, press 'y' and use admin as username and admin for password.
-
-Wait for success deployment. You can see the new created profile using web console at Runtime>Manage>Uncategorized>wscalculator.
-
-![wscalculator profile](https://github.com/igl100/fuse621-wsdemo/blob/master/docs/image/Capture7.png)
-
-# Create a camel broker for wscalculator
-
-We need to create a broker that use the profile created in the last steps to actually expose the services.
-
-* `fabric:container-create-child --profile wscalculator root ws-calculator1`
-
-Notices how we define wscalculator profiles as parent.
-
-* Go to web console at Runtime and wait for container to start.
-
-![WSCalculator Start](https://github.com/igl100/fuse621-wsdemo/blob/master/docs/image/Captura8.png)
-
-* Go to web console at Services>APIs and check that all three services are started. Notice the port was auto assigned.
-
-![Console APIs](https://github.com/igl100/fuse621-wsdemo/blob/master/docs/image/Captura9.png)
-
-# Edit wscalculate
-
-The wscalculate project is a proxy so we need to edit the custom port where wscalculator services started.
-
-* Edit file <FuseWADemoDir>/projects/wscalculate/src/main/fabric8/wsproxy.properties
-* Change port and wsdlPort properties to the correct port assigned al APIs tab.
-* Save changes.
+Wait for success deployment. You can see the new camel route using web console. A new CAMEL option will show on the left side menu.
 
 # Deploy wscalculate profile
 
 This project contains the definition of calculate services. In order to deploy: 
 
  * On a terminal go to demo projects directory: `cd <FuseWADemoDir>/projects/wscalculate`
- * Run: `mvn clean install fabric8:deploy`
+ * Run: `mvn clean generate-sources wildfly:deploy`
 
-Wait for success deployment. You can see the new created profile using web console at Runtime>Manage>Uncategorized>wscalculate.
-
-![wscalculate profile](https://github.com/igl100/fuse621-wsdemo/blob/master/docs/image/Capture10.png)
-
-# Create a camel broker
-
-We need to create a broker that use both profiles created in the last steps to actually expose all the services.
-
-* `fabric:container-create-child --profile wscalculate root ws-calculate1`
-
-Notices how we define wscalculate profile as parent.
-
-* Go to web console at Runtime and wait for container to start.
-
-![WSCalculator Start](https://github.com/igl100/fuse621-wsdemo/blob/master/docs/image/Capture11.png)
-
-* Go to web console at Services>APIs and check that all three services are started. Notice the port was auto assigned to service Calculate.
-
-![Console APIs](https://github.com/igl100/fuse621-wsdemo/blob/master/docs/image/Capture12.png)
+Wait for success deployment. You can see the new created profile using web console.
 
 # Use Soap UI to invoke the services
 
 At this point, the services should be exposed and ready to be invoked. Use Soap UI config files provided on this demo (Inside soapui directory) to import as projects, request and execute client.<br/><br/>
-
-# Enable HA on web services
-
-* On fabric console run: `fabric:container-create-child --profile gateway-http root ws-gateway`. This commando will create a new broker with gateway-http profile assigned. This profile enable load balancing for web, services and messaging request. By default it listen at port 9000 (this can be changed).
-
-![WSGateway Broker](https://github.com/igl100/fuse621-wsdemo/blob/master/docs/image/Capture13.png)
-
-* On web console edit wsproxy.properties inside wscalculate profile. Go to Runtime>Manage>Uncategorized and click on wscalculate profile. 
-
-![wscalculate profile edit](https://github.com/igl100/fuse621-wsdemo/blob/master/docs/image/Capture14.png)
-
-* Click on wsproxy.properties file on the left side.
-* When properties are display, click on edit button on the top/right side.
-* Change port value to 9000
-
-![wscalculate port change](https://github.com/igl100/fuse621-wsdemo/blob/master/docs/image/Capture15.png)
-
-* Click save button.
-
-Note how changes to the profile will apply to brokers assigned to it.
-After brokers refresh, note that services can be accessed at port 9000 too.
-
-# Adding more brokers to cluster
-
-Lets add more brokers to ensure HA. Create two more brokers to publish sum, add and multiply services.
-
-* Run `fabric:container-create-child --profile wscalculator root ws-calculator2`
-* Run `fabric:container-create-child --profile wscalculator root ws-calculator3`
-
-* Go to web console at Runtime and wait for container to start.
-
-![WSCalculator Start](https://github.com/igl100/fuse621-wsdemo/blob/master/docs/image/Capture16.png)
-
-* Go to web console at Services>APIs and check that all three services are started. Notice the port was auto assigned to service Calculate.
-
-![Console APIs](https://github.com/igl100/fuse621-wsdemo/blob/master/docs/image/Capture17.png)
-
-* Run `fabric:container-create-child --profile wscalculate root ws-calculate2`
-* Run `fabric:container-create-child --profile wscalculate root ws-calculate3`
-
-* Go to web console at Runtime and wait for container to start.
-
-![WSCalculator Start](https://github.com/igl100/fuse621-wsdemo/blob/master/docs/image/Capture18.png)
-
-* Go to web console at Services>APIs and check that all three services are started. Notice the port was auto assigned to service Calculate.
-
-![Console APIs](https://github.com/igl100/fuse621-wsdemo/blob/master/docs/image/Capture19.png)
-
-As you can see, brokers can now be added and stopped at runtime and WSGateway will balance over active services.
 
 Have fun!!
  
