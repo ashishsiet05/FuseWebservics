@@ -20,6 +20,10 @@
 
 	<import resource="classpath:META-INF/spring/camel-cxf.xml" />
 
+  <bean id="logQuery" class="io.hawt.log.log4j.Log4jLogQuery"
+      lazy-init="false" scope="singleton"
+      init-method="start" destroy-method="stop"/>
+
 	<bean id="sumProcessor" class="com.redhat.fuse.demos.ws.wssuma.SumProcessor" />
 	<bean id="addProcessor" class="com.redhat.fuse.demos.ws.wssuma.AddProcessor" />
 	<bean id="multiplyProcessor" class="com.redhat.fuse.demos.ws.wssuma.MultiplyProcessor" />

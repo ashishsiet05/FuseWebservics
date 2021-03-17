@@ -13,3 +13,4 @@ RemoteSystemTempFiles/
 *.war
 *.ear
 Steps.rtf
+.vscode
